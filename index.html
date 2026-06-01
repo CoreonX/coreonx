@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Em Breve</title>
+    
+    <!-- Fontes do Google -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500&display=swap" rel="stylesheet">
     
+    <!-- FAVICON: Ícone de Balão de Mensagem (Chat) em SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ffff'%3E%3Cpath d='M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/%3E%3C/svg%3E">
+
     <style>
         /* Reset básico */
         * {
@@ -16,12 +21,11 @@
 
         body, html {
             height: 100%;
-            overflow: hidden; /* Impede rolagem na tela */
+            overflow: hidden; 
             font-family: 'Rajdhani', sans-serif;
             background-color: #050505;
         }
 
-        /* Container principal que cobre toda a tela */
         .background-container {
             position: relative;
             width: 100vw;
@@ -33,7 +37,7 @@
             overflow: hidden;
         }
 
-        /* Caixa de conteúdo centralizada (Efeito Glassmorphism) */
+        /* Card Principal */
         .content {
             position: relative;
             z-index: 10;
@@ -42,12 +46,11 @@
             padding: 4rem 6rem;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px); /* Efeito de vidro borrado */
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 0 40px rgba(138, 43, 226, 0.2);
         }
 
-        /* Estilo do título "EM BREVE" */
         h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 5rem;
@@ -55,7 +58,6 @@
             letter-spacing: 12px;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            /* Brilho Neon */
             text-shadow: 
                 0 0 10px #00ffff, 
                 0 0 20px #00ffff, 
@@ -64,7 +66,6 @@
             animation: pulse-neon 3s infinite alternate;
         }
 
-        /* Subtítulo */
         p {
             color: #b3b3b3;
             font-size: 1.5rem;
@@ -72,25 +73,195 @@
             text-transform: uppercase;
         }
 
-        /* Animação de pulsação do Neon */
         @keyframes pulse-neon {
             0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
             100% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #8a2be2, 0 0 80px #00ffff; }
         }
+
+        /* BOTÃO FLUTUANTE DE COMUNICAÇÃO */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            animation: float-pulse 2s infinite alternate;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+            animation-play-state: paused; /* Pausa a animação ao passar o mouse */
+        }
+
+        .floating-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: #00ffff;
+            display: block;
+            margin-top: 2px; /* Pequeno ajuste visual no ícone */
+        }
+
+        @keyframes float-pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+            100% { box-shadow: 0 0 30px rgba(0, 242, 254, 0.5); }
+        }
+
+        /* CONTEÚDO DO FORMULÁRIO EXPANSÍVEL */
+        .form-container {
+            position: fixed;
+            bottom: 105px; 
+            right: 30px;
+            width: 400px;
+            height: 520px;
+            background: rgba(10, 5, 22, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(138, 43, 226, 0.2);
+            z-index: 99;
+            overflow: hidden;
+            
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .form-container.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .form-header {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-header h3 {
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: #b3b3b3;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ff00ff;
+        }
+
+        /* ESTILO DO FORMULÁRIO NATIVO */
+        .custom-form {
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .input-group label {
+            color: #00ffff;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input, 
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+
+        .input-group input:focus, 
+        .input-group textarea:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00ffff;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+        }
+
+        .input-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .submit-btn {
+            background: transparent;
+            border: 1px solid #8a2be2;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.2);
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+            color: #ff00ff;
+        }
         
-        /* Responsividade para celulares */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-                letter-spacing: 6px;
+            h1 { font-size: 3rem; letter-spacing: 6px; }
+            .content { padding: 2.5rem 2rem; width: 90%; }
+            p { font-size: 1rem; }
+            .form-container {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+                bottom: 95px;
+                height: auto; /* Ajusta a altura automaticamente no mobile */
+                padding-bottom: 20px;
             }
-            .content {
-                padding: 2.5rem 2rem;
-                width: 90%;
-            }
-            p {
-                font-size: 1rem;
-            }
+            .floating-btn { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -99,9 +270,65 @@
     <div class="background-container">
         <div class="content">
             <h1>EM BREVE</h1>
-            <p>Estamos construindo o Futuro</p>
+            <p>O Futuro já começou</p>
         </div>
     </div>
+
+    <!-- BOTÃO FLUTUANTE DE CONTATO (Balão de Mensagem) -->
+    <div class="floating-btn" id="contactBtn" title="Fale Conosco">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+    </div>
+
+    <!-- PAINEL EXPANSÍVEL COM FORMULÁRIO NATIVO -->
+    <div class="form-container" id="formPanel">
+        <div class="form-header">
+            <h3>Fale Conosco</h3>
+            <button class="close-btn" id="closeBtn">&times;</button>
+        </div>
+        
+        <!-- Formulário HTML Puro -->
+        <form class="custom-form" action="#" method="POST">
+            <div class="input-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Como podemos ajudar?" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Enviar Mensagem</button>
+        </form>
+    </div>
+
+    <script>
+        const contactBtn = document.getElementById('contactBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const formPanel = document.getElementById('formPanel');
+
+        contactBtn.addEventListener('click', () => {
+            formPanel.classList.toggle('active');
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            formPanel.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!formPanel.contains(e.target) && !contactBtn.contains(e.target)) {
+                formPanel.classList.remove('active');
+            }
+        });
+    </script>
 
 </body>
 </html>

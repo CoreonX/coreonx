@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novidades em Breve - Projeto X</title>
+    
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content="Nova experiência digital em construção.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --primary-glow: #00f2fe;
+            --secondary-glow: #4facfe;
+            --accent-purple: #7000ff;
+            --text-main: #ffffff;
+            --text-muted: #8fa0dd;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --header-bg: rgba(11, 15, 25, 0.75);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            /* Espaçamentos para evitar que o card fique sob o header ou footer */
+            padding-top: 70px; 
+            padding-bottom: 40px;
+            overflow-x: hidden; 
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* --- CABEÇALHO FIXO (LIMPO E À ESQUERDA) --- */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: flex-start; /* Garante tudo na esquerda */
+            align-items: center;
+            padding: 12px 24px;
+            height: 60px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-placeholder {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.3);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+        }
+
+        /* --- STATUS BAR (RODAPÉ FIXO) --- */
+        .system-status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            opacity: 0.9;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        /* --- MALHA DE FUNDO SUTIL (TECH GRID) --- */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 1;
+        }
+
+        /* --- GRANDES BRILHOS DE FUNDO (AMBIENT GLOW) --- */
+        .ambient-glow-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(112, 0, 255, 0.05) 50%, rgba(0,0,0,0) 70%);
+            top: -150px;
+            left: -150px;
+            z-index: 2;
+            animation: pulseGlow 12s infinite alternate ease-in-out;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.03) 60%, rgba(0,0,0,0) 70%);
+            bottom: -150px;
+            right: -100px;
+            z-index: 2;
+            animation: pulseGlow 18s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.15); }
+        }
+
+        /* --- OBJETOS FLUTUANTES MODERNOS (3D/GLASS ORBS) --- */
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 3;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .orb-blur-accent {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        .orb-1 { width: 140px; height: 140px; top: 25%; right: 15%; animation: floatObject 7s infinite ease-in-out; }
+        .orb-1-glow { width: 100px; height: 100px; top: 28%; right: 17%; background: var(--primary-glow); }
+
+        .orb-2 { width: 90px; height: 90px; bottom: 15%; left: 10%; animation: floatObject 9s infinite ease-in-out -2s; }
+        .orb-2-glow { width: 70px; height: 70px; bottom: 17%; left: 11%; background: var(--accent-purple); }
+
+        .orb-3 { width: 60px; height: 60px; top: 35%; left: 20%; animation: floatObject 6s infinite ease-in-out -4s; }
+
+        @keyframes floatObject {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* --- CARD CENTRAL (GLASSMORPHISM) --- */
+        .main-card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 600px;
+            padding: 50px 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            animation: fadeInCard 1.2s ease-out;
+            margin: auto; /* Mantém centralizado vertical e horizontalmente */
+        }
+
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 100px;
+            color: var(--primary-glow);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--primary-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-glow);
+            animation: blinkDot 1.5s infinite;
+        }
+
+        @keyframes blinkDot {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -1.5px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 40%, #b2c5ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.description {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 400;
+            max-width: 480px;
+            margin: 0 auto 35px auto;
+        }
+
+        /* --- CONTEÚDO INFERIOR DO CARD --- */
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+        }
+
+        .footer-links span {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="nav-bar">
+            <div class="logo-container">
+                <div class="logo-placeholder">X</div>
+                <span class="project-title">Projeto X</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="system-status-bar">
+        <span class="time">09:41</span>
+        <div class="status-icons">
+            <span class="icon">📶</span>
+            <span class="icon">🛜</span>
+            <span class="icon">🔋</span>
+        </div>
+    </div>
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="orb-blur-accent orb-1-glow"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="orb-blur-accent orb-2-glow"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <div class="main-card">
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            Em Construção
+        </div>
+        
+        <h1>Algo incrível está sendo preparado</h1>
+        
+        <p class="description">
+            Estamos desenvolvendo uma nova experiência digital sob medida. Nosso site oficial estará no ar em breve.
+        </p>
+
+        <div class="footer-links">
+            <span>Aguarde novidades.</span>
+        </div>
+    </div>
+
+</body>
+</html>

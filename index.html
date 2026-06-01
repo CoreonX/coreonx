@@ -77,79 +77,6 @@
             0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
             100% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #8a2be2, 0 0 80px #00ffff; }
         }
-
-        /* OBJETOS FLUTUANTES */
-        .shape {
-            position: absolute;
-            filter: blur(3px); /* Desfoque leve para dar profundidade */
-            opacity: 0.6;
-            animation: float 15s infinite linear;
-        }
-
-        /* Forma 1: Esfera azul/roxa */
-        .shape-1 {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(45deg, #00ffff, #8a2be2);
-            border-radius: 50%;
-            top: 10%;
-            left: 15%;
-            animation-duration: 25s;
-        }
-
-        /* Forma 2: Blob amorfo magenta/ciano */
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            top: 60%;
-            left: 75%;
-            animation-duration: 30s;
-            animation-direction: reverse;
-        }
-
-        /* Forma 3: Quadrado vazado */
-        .shape-3 {
-            width: 100px;
-            height: 100px;
-            border: 2px solid #00ffff;
-            background: transparent;
-            top: 75%;
-            left: 20%;
-            animation-duration: 18s;
-        }
-
-        /* Forma 4: Esfera com brilho superior */
-        .shape-4 {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(to top, #8a2be2, transparent);
-            border-radius: 50%;
-            top: 15%;
-            right: 20%;
-            animation-duration: 22s;
-        }
-
-        /* Forma 5: Pequeno cubo brilhante */
-        .shape-5 {
-            width: 60px;
-            height: 60px;
-            background: #ff00ff;
-            border-radius: 12px;
-            bottom: 15%;
-            left: 45%;
-            box-shadow: 0 0 30px #ff00ff;
-            animation-duration: 15s;
-        }
-
-        /* Movimento geral de flutuação e rotação */
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg) scale(1); }
-            33% { transform: translateY(-40px) rotate(120deg) scale(1.1); }
-            66% { transform: translateY(30px) rotate(240deg) scale(0.9); }
-            100% { transform: translateY(0) rotate(360deg) scale(1); }
-        }
         
         /* Responsividade para celulares */
         @media (max-width: 768px) {
@@ -170,12 +97,6 @@
 <body>
 
     <div class="background-container">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-        <div class="shape shape-5"></div>
-
         <div class="content">
             <h1>EM BREVE</h1>
             <p>O Futuro já começou</p>

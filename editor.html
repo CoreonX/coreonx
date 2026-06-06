@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Visual Local — CoreonX</title>
+  <!-- Preload fonts to avoid layout shift -->
+  <link rel="preload" href="./fonts/orbitron.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/rajdhani.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="module" crossorigin src="./assets/editor-BnZe-Bks.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="./assets/index-2Adx3jUJ.js">
+  <link rel="stylesheet" crossorigin href="./assets/editor-CmcXnYpa.css">
+</head>
+<body class="editor-body">
+  <header class="editor-header">
+    <div class="editor-header__brand">
+      <a href="index.html" class="brand-link"><span class="glow-text-neon">CoreonX</span> <span class="brand-sub">/ Editor Visual</span></a>
+    </div>
+    <div class="editor-header__actions">
+      <span id="save-status" class="save-status">Salvo</span>
+      <button id="save-btn" class="primary-button save-btn">Salvar Alterações</button>
+    </div>
+  </header>
+
+  <div class="editor-layout">
+    <aside class="editor-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">Sistema</h3>
+        <ul class="pages-list">
+          <li>
+            <button class="page-link-item global-settings-item" id="global-settings-btn">
+              Configurações Globais
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-section" style="margin-top: 2rem;">
+        <div class="section-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <h3 class="sidebar-section-title" style="margin: 0;">Páginas</h3>
+          <button id="add-page-btn" class="mini-action-btn" style="background: var(--surface-glass); border: 1px solid var(--border-cyan); color: var(--cyan); padding: 0.25rem 0.5rem; font-size: 0.9rem;" title="Criar Nova Página">＋ Criar</button>
+        </div>
+        <ul id="pages-list" class="pages-list"></ul>
+      </div>
+    </aside>
+
+    <main class="editor-workspace">
+      <div id="no-page-selected" class="no-page-selected">
+        <p>Selecione uma página ou configuração global na barra lateral para começar a editar.</p>
+      </div>
+
+      <!-- Page Content Editor -->
+      <div id="page-editor" class="page-editor hidden">
+        <!-- Metadata -->
+        <section class="editor-section">
+          <h3 class="section-title">Metadados da Página</h3>
+          <div class="form-grid">
+            <div class="field-item">
+              <label for="meta-title">Título da Página (Meta Title)</label>
+              <input type="text" id="meta-title">
+            </div>
+            <div class="field-item">
+              <label for="meta-breadcrumb">Breadcrumb (Ex: Home / Serviços)</label>
+              <input type="text" id="meta-breadcrumb">
+              <div style="margin-top: 0.5rem;" class="checkbox-item">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="meta-show-breadcrumb">
+                  Exibir Breadcrumb na Página
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Content Blocks -->
+        <section class="editor-section">
+          <div class="section-header-row">
+            <h3 class="section-title">Blocos de Conteúdo</h3>
+            <button id="add-block-trigger" class="secondary-button add-block-btn">＋ Adicionar Bloco</button>
+          </div>
+          <div id="blocks-list" class="blocks-list">
+            <!-- Dinâmico -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Global Settings Editor -->
+      <div id="global-editor" class="page-editor hidden">
+        <section class="editor-section">
+          <h3 class="section-title">Configurações do Cabeçalho</h3>
+          <div class="form-grid">
+            <div class="field-item">
+              <label for="global-brand-title">Título da Marca (Header)</label>
+              <input type="text" id="global-brand-title" data-global-field="brandTitle">
+            </div>
+            <div class="field-item">
+              <label for="global-brand-subtitle">Subtítulo da Marca (Header)</label>
+              <input type="text" id="global-brand-subtitle" data-global-field="brandSubtitle">
+            </div>
+            <div class="field-item full-width">
+              <label for="global-brand-logo">Logotipo da Marca (Caminho da Imagem - Opcional)</label>
+              <input type="text" id="global-brand-logo" data-global-field="brandLogo" placeholder="Ex: /assets/logo.svg">
+            </div>
+          </div>
+          <div style="margin-top: 1.5rem;">
+            <h4 class="sidebar-section-title" style="margin-bottom: 0.5rem; text-transform: uppercase;">Links do Menu de Navegação</h4>
+            <div id="global-navigation-links-container"></div>
+          </div>
+        </section>
+
+        <section class="editor-section">
+          <h3 class="section-title">Configurações do Rodapé</h3>
+          <div class="form-grid">
+            <div class="field-item full-width">
+              <label for="global-footer-brand-copy">Texto da Marca no Rodapé</label>
+              <textarea id="global-footer-brand-copy" data-global-field="footerBrandCopy" rows="2"></textarea>
+            </div>
+            <div class="field-item">
+              <label for="global-footer-copyright">Texto de Direitos Autorais (Copyright)</label>
+              <input type="text" id="global-footer-copyright" data-global-field="footerCopyright">
+            </div>
+            <div class="field-item">
+              <label for="global-footer-copy">Texto da Newsletter</label>
+              <textarea id="global-footer-copy" data-global-field="footerCopy" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top: 1.5rem;">
+            <div class="field-item">
+              <label for="global-footer-col1-title">Título da Coluna 1</label>
+              <input type="text" id="global-footer-col1-title" data-global-field="footerCol1Title">
+            </div>
+            <div class="field-item">
+              <label for="global-footer-col2-title">Título da Coluna 2</label>
+              <input type="text" id="global-footer-col2-title" data-global-field="footerCol2Title">
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top: 1rem;">
+            <div class="field-item">
+              <h4 class="sidebar-section-title" style="margin-bottom: 0.5rem; text-transform: uppercase;">Links da Coluna 1</h4>
+              <div id="global-footer-col1-links-container"></div>
+            </div>
+            <div class="field-item">
+              <h4 class="sidebar-section-title" style="margin-bottom: 0.5rem; text-transform: uppercase;">Links da Coluna 2</h4>
+              <div id="global-footer-col2-links-container"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem;">
+            <h4 class="sidebar-section-title" style="margin-bottom: 0.5rem; text-transform: uppercase;">Links de Rodapé Inferiores</h4>
+            <div id="global-footer-bottom-links-container"></div>
+          </div>
+        </section>
+
+        <section class="editor-section">
+          <h3 class="section-title">Configurações de Formulários</h3>
+          <div class="form-grid">
+            <div class="field-item">
+              <label for="global-form-title">Título do Formulário de Contato</label>
+              <input type="text" id="global-form-title" data-global-field="formTitle">
+            </div>
+            <div class="field-item">
+              <label for="global-form-copy">Subtítulo do Formulário de Contato</label>
+              <textarea id="global-form-copy" data-global-field="formCopy" rows="2"></textarea>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Adicionar Bloco -->
+  <div id="add-block-modal" class="add-block-modal hidden" aria-hidden="true" role="dialog">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Escolha um Tipo de Bloco</h3>
+        <button id="close-modal-btn" class="close-modal-btn" aria-label="Fechar">✕</button>
+      </div>
+      <div class="available-blocks" id="available-blocks-grid">
+        <!-- Dinâmico -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Confirmação Customizado -->
+  <div id="confirm-modal" class="confirm-modal-wrapper" aria-hidden="true" role="dialog">
+    <div class="modal-overlay" id="confirm-modal-overlay"></div>
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="confirm-modal-title">Confirmação</h3>
+        <button id="confirm-modal-close" class="close-modal-btn" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-body" id="confirm-modal-message">
+        Deseja realizar esta ação?
+      </div>
+      <div class="modal-footer">
+        <button id="confirm-modal-cancel" class="confirm-modal-btn-cancel">Cancelar</button>
+        <button id="confirm-modal-confirm" class="confirm-modal-btn-confirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Criar Página Customizado -->
+  <div id="create-page-modal" class="confirm-modal-wrapper" aria-hidden="true" role="dialog">
+    <div class="modal-overlay" id="create-page-modal-overlay"></div>
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3>Criar Nova Página</h3>
+        <button id="create-page-modal-close" class="close-modal-btn" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid" style="grid-template-columns: 1fr;">
+          <div class="field-item">
+            <label for="new-page-id">Identificador da Página (slug, ex: novidades)</label>
+            <input type="text" id="new-page-id" placeholder="Apenas letras minúsculas e hifens">
+          </div>
+          <div class="field-item">
+            <label for="new-page-title">Título da Página (Ex: Novidades)</label>
+            <input type="text" id="new-page-title" placeholder="Ex: Novidades">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="create-page-modal-cancel" class="confirm-modal-btn-cancel">Cancelar</button>
+        <button id="create-page-modal-confirm" class="confirm-modal-btn-confirm">Criar</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

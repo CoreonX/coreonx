@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em Breve</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500&display=swap" rel="stylesheet">
+    <title>coreonx // tech_space</title>
     
     <style>
-        /* Reset básico */
+        /* Fallback de Fontes do Sistema caso o Google Fonts seja bloqueado localmente */
+        @font-face {
+            font-family: 'TechFallback';
+            src: local('Segoe UI Multiline'), local('Century Gothic'), local('System-UI'), sans-serif;
+        }
+
+        /* Reset Total */
         * {
             margin: 0;
             padding: 0;
@@ -16,91 +21,171 @@
 
         body, html {
             height: 100%;
-            overflow: hidden; /* Impede rolagem na tela */
-            font-family: 'Rajdhani', sans-serif;
-            background-color: #050505;
-        }
-
-        /* Container principal que cobre toda a tela */
-        .background-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%);
-            overflow: hidden;
-        }
-
-        /* Caixa de conteúdo centralizada  (Efeito Glassmorphism) */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 4rem 6rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px); /* Efeito de vidro borrado */
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 0 40px rgba(138, 43, 226, 0.2);
-        }
-
-        /* Estilo do título "EM BREVE" */
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
+            background-color: #03030c;
             color: #ffffff;
-            letter-spacing: 12px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            /* Brilho Neon */
-            text-shadow: 
-                0 0 10px #00ffff, 
-                0 0 20px #00ffff, 
-                0 0 40px #00ffff, 
-                0 0 80px #8a2be2;
-            animation: pulse-neon 3s infinite alternate;
+            font-family: 'Share Tech Mono', 'TechFallback', monospace;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Subtítulo */
-        p {
-            color: #b3b3b3;
-            font-size: 1.5rem;
-            letter-spacing: 3px;
+        /* --- BACKGROUND ULTRA-SEGURO (ONDAS EM SVG INLINE) --- */
+        .tech-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #03030c;
+            /* Injeção de uma malha vetorial de ondas diretamente em código binário de cor, imune a bloqueios de arquivos locais */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%2300f2fe' stroke-width='1' stroke-opacity='0.07' fill='none'%3E%3Cpath d='M-200,400 Q200,200 400,400 T1000,400 T1600,400 T2200,400' /%3E%3Cpath d='M-200,420 Q200,250 400,450 T1000,350 T1600,450 T2200,420' /%3E%3Cpath d='M-200,380 Q200,150 400,350 T1000,420 T1600,350 T2200,380' stroke='%238a2be2' stroke-opacity='0.05'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Grade cibernética overlay injetada diretamente via CSS */
+        .tech-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: backgroundPulse 8s ease-in-out infinite alternate;
+        }
+
+        /* --- CONTAINER DE ALTA RESOLUÇÃO (1650PX) --- */
+        .main-container {
+            max-width: 1650px;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Card Tecnológico Blindado contra Bugs de Layout */
+        .cyber-card {
+            background: #040614; 
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 20px;
+            padding: 4.5rem 6rem;
+            text-align: center;
+            max-width: 850px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(0, 242, 254, 0.08);
+            position: relative;
+        }
+
+        /* Cantos HUD */
+        .cyber-card::before, .cyber-card::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-color: #00f2fe;
+            border-style: solid;
+            pointer-events: none;
+        }
+        .cyber-card::before {
+            top: 15px; left: 15px;
+            border-width: 2px 0 0 2px;
+        }
+        .card-corners::before, .card-corners::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-color: #00f2fe;
+            border-style: solid;
+            pointer-events: none;
+        }
+        .card-corners::before {
+            bottom: 15px; left: 15px;
+            border-width: 0 0 2px 2px;
+        }
+        .cyber-card::after {
+            top: 15px; right: 15px;
+            border-width: 2px 2px 0 0;
+        }
+        .card-corners::after {
+            bottom: 15px; right: 15px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Nome Central com Garantia de Alinhamento */
+        .tech-name {
+            font-family: 'Orbitron', 'TechFallback', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-transform: lowercase;
+            background: linear-gradient(135deg, #ffffff 30%, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            display: block;
+            line-height: 1.1;
+            filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.25));
+        }
+
+        /* Mensagem Conceitual */
+        .tech-message {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #7e8cba;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* Animação de pulsação do Neon */
-        @keyframes pulse-neon {
-            0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
-            100% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #8a2be2, 0 0 80px #00ffff; }
+        .tech-message span {
+            color: #00f2fe;
+            font-weight: bold;
         }
-        
-        /* Responsividade para celulares */
+
+        /* Animação Suave da Grade para dar movimento dinâmico ao Fluxo */
+        @keyframes backgroundPulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* Responsividade Avançada */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-                letter-spacing: 6px;
-            }
-            .content {
-                padding: 2.5rem 2rem;
-                width: 90%;
-            }
-            p {
-                font-size: 1rem;
-            }
+            .tech-name { font-size: 3.5rem; }
+            .cyber-card { padding: 3rem 2rem; }
+            .tech-message { font-size: 1rem; }
         }
     </style>
+
+    <!-- Importação externa mantida (Funcionará perfeitamente quando o código for para o ar no GitHub) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="background-container">
-        <div class="content">
-            <h1>EM BREVE</h1>
-            <p>Estamos construindo o Futuro!</p>
+    <!-- Fundo de Fluxo Blindado por Vetor Embutido -->
+    <div class="tech-bg"></div>
+
+    <!-- Container Otimizado -->
+    <div class="main-container">
+        
+        <div class="cyber-card">
+            <div class="card-corners"></div>
+            
+            <h1 class="tech-name">coreonx</h1>
+            
+            <p class="tech-message">
+                [ sistema online ] <br>
+                desmistificando o amanhã através do <span>código</span>.
+            </p>
         </div>
+
     </div>
 
 </body>

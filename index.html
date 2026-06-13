@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>coreonx // tech_space</title>
-    <!-- Fontes Sci-Fi e Tecnológicas -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
@@ -17,36 +16,73 @@
 
         body, html {
             height: 100%;
-            background-color: #020208; /* Cor de segurança caso tudo falhe */
+            /* Fundo principal bem escuro */
+            background-color: #020208; 
             color: #ffffff;
             font-family: 'Share Tech Mono', monospace;
             overflow: hidden;
         }
 
-        /* --- BACKGROUND ULTRA-COMPATÍVEL (CSS PURO À PROVA DE FALHAS) --- */
-        .tech-bg {
+        /* --- CAMADA 1: BACKGROUND ANIMADO (CORRIGIDO) --- */
+        /* O z-index agora é 1 para garantir que fique ACIMA do fundo preto do body */
+        .background-layer {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            
-            /* Padrão de linhas e fluxo tecnológico cruzado feito com gradientes nativos */
-            background: 
-                linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-                linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-                linear-gradient(45deg, rgba(138, 43, 226, 0.05) 25%, transparent 25%, transparent 75%, rgba(138, 43, 226, 0.05) 75%),
-                radial-gradient(circle at 50% 50%, #0c0d28 0%, #020208 100%);
-            
-            background-size: 40px 40px, 40px 40px, 80px 80px, 100% 100%;
-            
-            /* Animação ultra-simples de deslocamento de malha técnica (fluxo de dados) */
-            animation: techFlux 20s linear infinite;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; 
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        /* --- CONTAINER ULTRA-WIDE (1650PX) --- */
+        /* Luz Tecnológica Flutuante 1 (Ciano) */
+        .glow-orb-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 60%);
+            top: -100px;
+            left: -100px;
+            border-radius: 50%;
+            animation: floatOrb 10s infinite alternate ease-in-out;
+        }
+
+        /* Luz Tecnológica Flutuante 2 (Roxo) */
+        .glow-orb-2 {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 60%);
+            bottom: -200px;
+            right: -200px;
+            border-radius: 50%;
+            animation: floatOrb 15s infinite alternate-reverse ease-in-out;
+        }
+
+        /* Grade Cibernética com Perspectiva 3D */
+        .cyber-grid {
+            position: absolute;
+            width: 200vw;
+            height: 200vh;
+            top: 0;
+            left: -50vw;
+            background-image: 
+                linear-gradient(rgba(0, 242, 254, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(500px) rotateX(70deg);
+            animation: moveGrid 5s linear infinite;
+            /* Máscara para a grade sumir suavemente no topo da tela */
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 60%);
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 60%);
+        }
+
+        /* --- CAMADA 2: CONTEÚDO PRINCIPAL --- */
+        /* O z-index é 10 para ficar muito ACIMA da animação de fundo */
         .main-container {
+            position: relative;
+            z-index: 10; 
             max-width: 1650px;
             width: 100%;
             height: 100vh;
@@ -57,72 +93,63 @@
             justify-content: center;
         }
 
-        /* Card Tecnológico Sólido (Sem propriedades de desfoque/blur que causam bloqueio) */
+        /* Card Tecnológico Blindado */
         .cyber-card {
-            background: #040614; /* Fundo sólido escuro para evitar falha de opacidade */
-            border: 2px solid rgba(0, 242, 254, 0.25);
+            background: #040614; 
+            border: 1px solid rgba(0, 242, 254, 0.3);
             border-radius: 20px;
             padding: 4.5rem 6rem;
             text-align: center;
             max-width: 850px;
             width: 100%;
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.08),
+                        inset 0 0 20px rgba(0, 242, 254, 0.05);
             position: relative;
         }
 
-        /* Detalhes nos quatro cantos do card (Estilo Interface HUD) */
-        .cyber-card::before, .cyber-card::after {
+        /* Cantos HUD */
+        .cyber-card::before, .cyber-card::after,
+        .card-corners::before, .card-corners::after {
             content: '';
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border-color: #00f2fe;
             border-style: solid;
             pointer-events: none;
         }
-        /* Cantos Superiores */
         .cyber-card::before {
             top: 15px; left: 15px;
             border-width: 2px 0 0 2px;
         }
-        /* Cantos Inferiores */
-        .card-corners::before, .card-corners::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border-color: #00f2fe;
-            border-style: solid;
-            pointer-events: none;
+        .cyber-card::after {
+            top: 15px; right: 15px;
+            border-width: 2px 2px 0 0;
         }
         .card-corners::before {
             bottom: 15px; left: 15px;
             border-width: 0 0 2px 2px;
-        }
-        .cyber-card::after {
-            top: 15px; right: 15px;
-            border-width: 2px 2px 0 0;
         }
         .card-corners::after {
             bottom: 15px; right: 15px;
             border-width: 0 2px 2px 0;
         }
 
-        /* Nome Central Impactante */
+        /* Nome Central */
         .tech-name {
             font-family: 'Orbitron', sans-serif;
             font-size: 5.5rem;
             font-weight: 900;
             letter-spacing: -2px;
-            text-transform: lowercase; /* Apenas coreonx */
+            text-transform: lowercase;
             background: linear-gradient(135deg, #ffffff 30%, #00f2fe, #4facfe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.3));
+            filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.2));
         }
 
-        /* Mensagem Futurista e Tecnológica */
+        /* Mensagem Futurista */
         .tech-message {
             font-size: 1.3rem;
             line-height: 1.6;
@@ -133,19 +160,21 @@
 
         .tech-message span {
             color: #00f2fe;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
         }
 
-        /* --- ANIMAÇÃO DE FLUXO PADRÃO (SUPORTE TOTAL) --- */
-        @keyframes techFlux {
-            0% {
-                background-position: 0px 0px, 0px 0px, 0px 0px, 0.5% 50%;
-            }
-            100% {
-                background-position: 40px 40px, 40px 40px, 80px 80px, 50% 50%;
-            }
+        /* --- ANIMAÇÕES CSS PURAS --- */
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 40px) scale(1.1); }
         }
 
-        /* Responsividade para Celulares */
+        @keyframes moveGrid {
+            0% { transform: perspective(500px) rotateX(70deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(70deg) translateY(60px); }
+        }
+
+        /* Responsividade para Telas Menores */
         @media (max-width: 768px) {
             .tech-name { font-size: 3.5rem; }
             .cyber-card { padding: 3rem 2rem; }
@@ -155,21 +184,19 @@
 </head>
 <body>
 
-    <!-- Fundo de Fluxo Gerado por Estrutura Matemática de Cores (Inquebrável) -->
-    <div class="tech-bg"></div>
+    <div class="background-layer">
+        <div class="glow-orb-1"></div>
+        <div class="glow-orb-2"></div>
+        <div class="cyber-grid"></div>
+    </div>
 
-    <!-- Container Otimizado para Monitores de Alta Resolução -->
     <div class="main-container">
         
-        <!-- Card Central -->
         <div class="cyber-card">
-            <!-- Cantos HUD do Card -->
             <div class="card-corners"></div>
             
-            <!-- Nome Puro -->
             <h1 class="tech-name">coreonx</h1>
             
-            <!-- Mensagem Futurista -->
             <p class="tech-message">
                 [ sistema online ] <br>
                 desmistificando o amanhã através do <span>código</span>.
